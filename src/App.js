@@ -1,11 +1,13 @@
 import "./App.css";
-import Table from "./components/Table";
+import FilteringTable from "./components/FilteringTable";
+// import SortingTable from "./components/SortingTable";
+// import Table from "./components/Table";
 
 function App() {
   return (
-    <div className="App">
-      <div className="">
-        <Table />
+    <div className="Abg-gradient-to-r from-gray-800 via-gray-800 to-gray-800pp">
+      <div className="bg-gradient-to-r from-gray-800 via-gray-800 to-gray-800">
+        <FilteringTable />
       </div>
     </div>
   );

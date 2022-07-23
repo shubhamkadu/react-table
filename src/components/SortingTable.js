@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 
 import Data from "../Data.json";
 import { COLUMNS } from "../columns";
 
-function Table() {
+function SortingTable() {
   const columns = useMemo(() => COLUMNS, []);
 
   const data = useMemo(() => Data, []);
@@ -16,7 +16,7 @@ function Table() {
     footerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data });
+  } = useTable({ columns, data }, useSortBy);
 
   return (
     <>
@@ -26,9 +26,12 @@ function Table() {
             {headerGroups.map((headerGroup) => (
               <tr class="" {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th className="p-3" {...column.getHeaderProps()}>
+                  <th className="p-3" {...column.getHeaderProps(column.getSortByToggleProps())}>
                     <div class="bg-gray-500/50 text-black rounded-md p-1 ">
                       {column.render("Header")}
+                      <span>
+                        {column.isSorted ? (column.isSortedDesc ? '🔼':'🔽'):''}
+                      </span>
                     </div>
                   </th>
                 ))}
@@ -46,7 +49,10 @@ function Table() {
                 >
                   {row.cells.map((cell) => {
                     return (
-                      <td className="p-4 text-gray-300 " {...cell.getCellProps()}>
+                      <td
+                        className="p-4 text-gray-300 "
+                        {...cell.getCellProps()}
+                      >
                         <div className="bg-gray-400/10 backdrop-blur-md rounded-md  ">
                           {cell.render("Cell")}
                         </div>
@@ -74,4 +80,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default SortingTable;
